@@ -216,13 +216,13 @@
 													<td>{{ $item['date_create']}}</td>
 													<td>
 														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Ruas">
+															<a href="{{ route('get.edit', $item['id'])}}" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Ruas">
 																<i class="fa fa-edit"></i>
-															</button>
+															</a>
 															<a href="{{ route('get.ruas', $item['id'])}}" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Detail Ruas">
 																<i class="fa fa-eye"></i>
 															</a>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" id="alert_demo_8" data-original-title="Hapus">
+															<button data-id="{{ $item['id']}}" data-ruas="{{ $item['ruas']}}" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger delete"  data-original-title="Hapus">
 																<i class="fa fa-times"></i>
 															</button>
 														</div>
@@ -312,60 +312,49 @@
 		});
 	</script>
 	<script>
-		//== Class definition
-		var SweetAlert2Demo = function() {
+		$('.delete').click(function() {
+			var ruasid = $(this).attr('data-id');
+			var ruas = $(this).attr('data-ruas');
 
-			//== Demos
-			var initDemos = function() {
-
-
-				$('#alert_demo_8').click(function(e) {
-					swal({
-						title: 'Apakah Anda Yakin Ingin Menghapus Ruas Ini?',
-						text: "Anda tidak akan dapat mengembalikan ini!",
-						type: 'warning',
+			swal({
+				title: 'Apakah Anda Yakin Ingin Menghapus Ruas Ini?',
+				text: "Kamu akan Menghapus Data Ruas dengan Nama Ruas "+ruas+" ",
+				type: 'warning',
+				buttons: {
+					cancel: {
+						visible: true,
+						text: 'Tidak',
+						className: 'btn btn-danger'
+					},
+					confirm: {
+						text: 'Ya',
+						className: 'btn btn-success'
+					}
+				}
+			}).then((willDelete) => {
+				if (willDelete) {
+					window.location = "delete/"+ruasid+""
+					swal("Data berhasil dihapus!", {
+						icon: "success",
 						buttons: {
-							cancel: {
-								visible: true,
-								text: 'Tidak',
-								className: 'btn btn-danger'
-							},
 							confirm: {
-								text: 'Ya',
 								className: 'btn btn-success'
 							}
 						}
-					}).then((willDelete) => {
-						if (willDelete) {
-							swal("Poof! Your imaginary file has been deleted!", {
-								icon: "success",
-								buttons: {
-									confirm: {
-										className: 'btn btn-success'
-									}
-								}
-							});
-						} else {
-							swal("Your imaginary file is safe!", {
-								buttons: {
-									confirm: {
-										className: 'btn btn-success'
-									}
-								}
-							});
+					});
+				} else {
+					swal("Data tidak jadi dihapus", {
+						buttons: {
+							confirm: {
+								className: 'btn btn-success'
+							}
 						}
 					});
-				})
+				}
+			});
 
-			};
-
-			return {
-				//== Init
-				init: function() {
-					initDemos();
-				},
-			};
-		}();
+		})
+		//== Class definition
 
 		//== Class Initialization
 		jQuery(document).ready(function() {

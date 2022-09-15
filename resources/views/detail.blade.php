@@ -198,67 +198,7 @@
 			});
 		});
 	</script>
-	<script>
-		//== Class definition
-		var SweetAlert2Demo = function() {
-
-			//== Demos
-			var initDemos = function() {
-
-
-				$('#alert_demo_8').click(function(e) {
-					swal({
-						title: 'Apakah Anda Yakin Ingin Menghapus Ruas Ini?',
-						text: "Anda tidak akan dapat mengembalikan ini!",
-						type: 'warning',
-						buttons: {
-							cancel: {
-								visible: true,
-								text: 'Tidak',
-								className: 'btn btn-danger'
-							},
-							confirm: {
-								text: 'Ya',
-								className: 'btn btn-success'
-							}
-						}
-					}).then((willDelete) => {
-						if (willDelete) {
-							swal("Poof! Your imaginary file has been deleted!", {
-								icon: "success",
-								buttons: {
-									confirm: {
-										className: 'btn btn-success'
-									}
-								}
-							});
-						} else {
-							swal("Your imaginary file is safe!", {
-								buttons: {
-									confirm: {
-										className: 'btn btn-success'
-									}
-								}
-							});
-						}
-					});
-				})
-
-			};
-
-			return {
-				//== Init
-				init: function() {
-					initDemos();
-				},
-			};
-		}();
-
-		//== Class Initialization
-		jQuery(document).ready(function() {
-			SweetAlert2Demo.init();
-		});
-	</script>
+	
 </body>
 
 </html>
